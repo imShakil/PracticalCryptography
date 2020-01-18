@@ -12,18 +12,18 @@ import CaesarCipher
 
 
 def __main__():
-    isOk = False
+    ok = False
     chk = 0
     while chk is not 3:
         print("Enter a value to choose an option: \n \t 1. Encryption \n \t 2. Decryption \n \t 3. Exit \n")
         chk = int(input())
         if chk == 2:
-            if not isOk:
+            if not ok:
                 print("Choose Encryption First\n")
             else:
                 CaesarCipher.__decryption__()
         elif chk == 1:
-            isOk = True
+            ok = True
             CaesarCipher.__encryption__()
         else:
             break
