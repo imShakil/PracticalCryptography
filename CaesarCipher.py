@@ -1,78 +1,56 @@
 # File     : CaesarCipher.py
 # Project  : PracticalCryptography
 # Product  : PyCharm
-# Created  : 7:44 PM, 17-Jan-20
+# Created  : 8:12 PM,3/2/20
 # Author   : Mobarak Hosen Shakil
 # E-mail   : mh.ice.iu@gmail.com
-# Blog     : http://codefighter.cf
+# Blog     : http://iuconvergent.wordpress.com
 # Information & Communication Technology
-# Islamic University, Kushtia, Bangladesh
-
-global k
+# Islamic University, Kushtia-7003, Bangladesh
 
 
-def __encryption__():
+def do_encryption(msg, key):
+    enc_text = ""
 
-    print("Enter Message to encrypt: ")
-
-    s = str(input())
-
-    print("Enter shift Key: ")
-
-    kk = int(input())
-
-    global k
-    k = kk
-
-    msg = encrypt(s, k)
-
-    print("Normal Message:", s)
-    print("Encrypted Message:", msg)
-    print("Encrypted Key:", k, '\n')
-
-
-def __decryption__():
-    
-    print("Enter Message to decrypt: ")
-    s = str(input())
-    msg = decrypt(s, k)
-
-    print("Normal Message:", s)
-    print("Decrypted Message:", msg)
-    print("Decrypted Key:", k, '\n')
-
-
-def encrypt(message, key):
-    
-    encrypted_message = ""
-
-    for i in range(len(message)):
-        char = message[i]
-
-        if char.isupper():
-            encrypted_message += chr((ord(char) + key - 65) % 26 + 65)
-        # Encrypt lowercase characters in plain text
-        elif char.islower():
-            encrypted_message += chr((ord(char) + key - 97) % 26 + 97)
+    for ch in msg:
+        if ch.isupper():
+            enc_text += chr((ord(ch) - 65 + key) % 26 + 65)
+        elif ch.islower():
+            enc_text += chr((ord(ch) - 97 + key) % 26 + 97)
         else:
-            encrypted_message += char
-            
-    return encrypted_message
+            enc_text += ch
+
+    return enc_text
 
 
-def decrypt(message, key):
+def do_decryption(msg, key):
+    enc_text = ""
 
-    decrypted_message = ""
-
-    for i in range(len(message)):
-        char = message[i]
-
-        if char.isupper():
-            decrypted_message += chr((ord(char) + key - 65) % 26 + 65)
-        # Encrypt lowercase characters in plain text
-        elif char.islower():
-            decrypted_message += chr((ord(char) + key - 97) % 26 + 97)
+    for ch in msg:
+        if ch.isupper():
+            enc_text += chr((ord(ch) - key - 65) % 26 + 65)
+        elif ch.islower():
+            enc_text += chr((ord(ch) - key - 97) % 26 + 97)
         else:
-            decrypted_message += char
+            enc_text += ch
 
-    return decrypted_message
+    return enc_text
+
+
+def main():
+    while 1:
+        op_code = int(input("Enter a value to perform an operation:\n1. Encryption\n2. Decryption\n3. Exit\n"))
+
+        if op_code == 1:
+            Message, key = str(input("Enter message to encrypt: ")), int(input("Enter a key between (1-26): "))
+            print("Plain Text: ", Message)
+            print("Cipher Text: ", do_encryption(Message, key))
+        elif op_code == 2:
+            Cipher_Text, key = str(input("Enter Encrypted message: ")), int(input("Enter valid key: "))
+            print("Cipher Text: ", Cipher_Text)
+            print("Plain Text: ", do_decryption(Cipher_Text, key))
+        else:
+            break
+
+
+main()
